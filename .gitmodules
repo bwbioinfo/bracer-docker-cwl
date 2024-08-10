@@ -1,0 +1,3 @@
+[submodule "bracer"]
+	path = bracer
+	url = https://github.com/Teichlab/bracer.git

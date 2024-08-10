@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: get-name
         run: |
           echo "REPO_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV

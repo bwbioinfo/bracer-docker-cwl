@@ -84,7 +84,7 @@ RUN wget https://downloads.sourceforge.net/project/bowtie-bio/bowtie2/2.5.1/bowt
 COPY ./bracer/docker_helper_files/requirements_stable.txt ./bracer/docker_helper_files/
 WORKDIR /bracer
 
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip --break-system-packages
 RUN pip3 install -r docker_helper_files/requirements_stable.txt --break-system-packages
 COPY ./bracer /bracer
 RUN python3 setup.py install

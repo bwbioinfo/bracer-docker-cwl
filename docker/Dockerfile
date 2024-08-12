@@ -29,10 +29,7 @@ samtools  \
 unzip \
 wget \
 zlib1g-dev \
-ninja-build \
-&& \
-apt-get clean && \
-rm -rf /var/lib/apt/lists/*
+ninja-build 
 
 #Trinity - depends on zlib1g-dev and openjdk-8-jre installed previously
 RUN wget https://github.com/trinityrnaseq/trinityrnaseq/releases/download/Trinity-v2.15.1/trinityrnaseq-v2.15.1.FULL.tar.gz 
@@ -45,7 +42,6 @@ RUN cd /trinityrnaseq-v2.15.1 && make
 RUN wget https://ftp.ncbi.nih.gov/blast/executables/igblast/release/1.21.0/ncbi-igblast-1.21.0-x64-linux.tar.gz && \
 tar -xf ncbi-igblast-1.21.0-x64-linux.tar.gz && \
 rm ncbi-igblast-1.21.0-x64-linux.tar.gz
-
 
 COPY ./bracer/docker_helper_files/gencode_parse.py /bracer/docker_helper_files/gencode_parse.py
 
@@ -89,8 +85,7 @@ COPY ./bracer/docker_helper_files/requirements_stable.txt ./bracer/docker_helper
 WORKDIR /bracer
 
 RUN pip install --upgrade pip
-# RUN pip install PyYAML numpy airr isal Levenshtein pandas matplotlib scipy scikit-learn biopython
-RUN pip3 install -r docker_helper_files/requirements_stable.txt
+RUN pip3 install -r docker_helper_files/requirements_stable.txt --break-system-packages
 COPY ./bracer /bracer
 RUN python3 setup.py install
 WORKDIR /

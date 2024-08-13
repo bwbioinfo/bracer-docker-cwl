@@ -86,7 +86,7 @@ WORKDIR /bracer
 
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
-# RUN pip install --upgrade pip
+RUN pip install --upgrade pip
 RUN pip3 install -r docker_helper_files/requirements_stable.txt
 COPY ./bracer /bracer
 RUN python3 setup.py install

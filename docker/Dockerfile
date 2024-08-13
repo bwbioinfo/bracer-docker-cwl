@@ -84,8 +84,10 @@ RUN wget https://downloads.sourceforge.net/project/bowtie-bio/bowtie2/2.5.1/bowt
 COPY ./bracer/docker_helper_files/requirements_stable.txt ./bracer/docker_helper_files/
 WORKDIR /bracer
 
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
 RUN pip install --upgrade pip
-RUN pip3 install -r docker_helper_files/requirements_stable.txt --break-system-packages
+RUN pip3 install -r docker_helper_files/requirements_stable.txt
 COPY ./bracer /bracer
 RUN python3 setup.py install
 WORKDIR /
@@ -95,6 +97,9 @@ RUN cp /bracer/docker_helper_files/docker_bracer.conf /home/.bracerrc
 
 ENV BRACER_CONF=/bracer/docker_helper_files/docker_bracer.conf
 ENV IGDATA=/ncbi-igblast-1.21.0/
+
+## Cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # # #this is a bracer container, so let's point it at bracer and set
 #  -e
